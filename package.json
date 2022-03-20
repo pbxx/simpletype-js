@@ -1,5 +1,5 @@
 {
-  "name": "simpletype",
+  "name": "simpletype-js",
   "version": "1.0.0",
   "description": "A quick and easy, multi-purpose type checker for Node.js",
   "main": "simpletype.js",
