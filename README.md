@@ -2,16 +2,19 @@
   <img src="https://ffpublishing.org/resources/img/simpletype/st-gitbanner.png?">
 </p>
 
-A quick and easy, array-safe, multi-purpose type checker for Node.js
+A quick and easy, lightweight, array-safe, multi-purpose type checker for Node.js
 
 ```js
 const st = require('simpletype')
 
-function myStrictFunction(name, age, income) {
-    let tcheck = st.checkSync("string", "number", ["string", "number"], arguments)
+function myStrictFunction(name, age, income, pets) {
+    let tcheck = st.checkSync("string", "number", ["string", "number"], "array", arguments)
     if (tcheck.correct) {
         //all arguments were of correct type
         
+    } else {
+        //one or more values were of incorrect type
+
     }
 }
 ```
@@ -27,23 +30,21 @@ Installation is done using the
 # How it works 
 simpleType returns information about item types with a ```tcheck``` object, such as the examples below...
 
-If all values passed to simpleType match the required types, the ```tcheck``` object will only have one parameter, ```correct```:
+If all values passed to simpleType match the required types, the ```tcheck``` object will only have one property, ```correct```:
 ```js
 { correct: true }
 ```
 
-If one or more failed the check, ```tcheck.correct``` will be false, and a  ```failed``` parameter is added, to provide details on which values failed.
-
-For values passed in Arrays, an index number of the incorrect value is provided for each failed value, as well as the type provided and expected:
+If one or more failed the check, ```tcheck.correct``` will be false, and a  ```failed``` array is added, to provide details on each value that failed.
 ```js
 {
   correct: false,
   failed: [ { index: 1, type: 'number', expected: 'string' } ]
 }
 ```
+As seen above, for values passed in Arrays, an index number of the incorrect value is provided for each failed value, as well as the type provided and expected.
 
-For values passed in Objects, the index parameter provides the key name of the failed value, instead:
-
+For values passed in Objects, the index property provides the key name of the failed value, instead:
 ```js
 {
   correct: false,
