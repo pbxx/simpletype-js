@@ -13,7 +13,7 @@ function myStrictFunction(name, age, income, pets) {
         //all arguments were of correct type
         
     } else {
-        //one or more values were of incorrect type
+        //one or more arguments were not of correct type
 
     }
 }
@@ -53,13 +53,12 @@ For values passed in Objects, the index property provides the key name of the fa
 ```
 
 # Getting started
+With the simple method, simpleType takes multiple type string arguments (or Array arguments for multiple acceptable types), then checks each of an ordered Array/Object of values, returning a ```tcheck``` object:
 ### Sychronous
-```st.checkSync()``` is used to do a basic type check, synchronously:
-
 ```js
 const st = require('simpletype')
 
-let tcheck = st.checkSync("string", "number", "number", arguments)
+let tcheck = st.checkSync("string", "array", ["number", "boolean"], arguments)
 if (tcheck.correct) {
     //all values were of correct type
 
@@ -71,11 +70,10 @@ if (tcheck.correct) {
 ```
 ### Asynchronous
 The ```st.check()``` function behaves exactly the same as the synchronous version, just as a promise:
-
 ```js
 const st = require('simpletype')
 
-st.check("string", "number", "number", /* any ordered Array or Object of values to check */)
+st.check("string", "array", "number", /* any ordered Array or Object of values to check */)
 .then((tcheck) => {
     if (tcheck.correct) {
         //all values were of correct type
@@ -90,10 +88,7 @@ st.check("string", "number", "number", /* any ordered Array or Object of values 
 ```
 
 # Extended Features
-
-For ease of use, simpleType allows you to pass types and arguments in multiple ways... 
-
-If typing required types as arguments isn't your style, simpleType allows you to use Arrays and Objects as well:
+simpleType can also take either an Array or Object of required type strings as the first argument:
 
 ```js
 let tcheck = st.checkSync(["string", "boolean"], { username: "johndoe", haspets: true })
@@ -101,7 +96,7 @@ let tcheck = st.checkSync(["string", "boolean"], { username: "johndoe", haspets:
 
 ```
 
-If you pass both types and values as Objects, the order of the values no longer matter! simpleType will check the type of each item by key:
+If you pass both types and values as Objects, the order of values no longer matter! simpleType will check the type of each item by key:
 
 ```js
 let tcheck = st.checkSync({haspets: "boolean", username: "string" }, { username: "johndoe", haspets: true })
