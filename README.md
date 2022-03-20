@@ -5,7 +5,7 @@
 A quick and easy, lightweight, array-safe, multi-purpose type checker for Node.js
 
 ```js
-const st = require('simpletype')
+const st = require('simpletype-js')
 
 function myStrictFunction(name, age, income, pets) {
     let tcheck = st.checkSync("string", "number", ["string", "number"], "array", arguments)
@@ -56,7 +56,7 @@ For values passed in Objects, the index property provides the key name of the fa
 With the simple method, simpleType takes multiple type string arguments (or Array arguments for multiple acceptable types), then checks each of an ordered Array/Object of values, returning a ```tcheck``` object:
 ### Sychronous
 ```js
-const st = require('simpletype')
+const st = require('simpletype-js')
 
 let tcheck = st.checkSync("string", "array", ["number", "boolean"], arguments)
 if (tcheck.correct) {
@@ -71,7 +71,7 @@ if (tcheck.correct) {
 ### Asynchronous
 The ```st.check()``` function behaves exactly the same as the synchronous version, just as a promise:
 ```js
-const st = require('simpletype')
+const st = require('simpletype-js')
 
 st.check("string", "array", "number", /* any ordered Array or Object of values to check */)
 .then((tcheck) => {
