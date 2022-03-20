@@ -24,7 +24,7 @@ Installation is done using the
 [`npm install` command](https://docs.npmjs.com/getting-started/installing-npm-packages-locally):
 
 ```console
-> npm i simpletype
+$ npm i simpletype-js
 ```
 
 # How it works 
