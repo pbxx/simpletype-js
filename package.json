@@ -1,0 +1,28 @@
+{
+  "name": "typeish",
+  "version": "1.0.0",
+  "description": "A quick and easy type checker for javascript",
+  "main": "typeish.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pbxx/typeish.git"
+  },
+  "keywords": [
+    "type",
+    "checker",
+    "validator",
+    "instant",
+    "async",
+    "sync",
+    "synchronous"
+  ],
+  "author": "Donavan Lewis",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pbxx/typeish/issues"
+  },
+  "homepage": "https://github.com/pbxx/typeish#readme"
+}
