@@ -1,6 +1,6 @@
 let errorTag = "[simpleType]"
 
-let checkArray = (arr, types) => {
+let checkArray = (arr, types) => {arr
     if (safeTypeof(types) == "array") {
         //in all situations except object mode, simpleType will need to process an ordered array of types
         if (types.length >= arr.length) {
@@ -19,7 +19,7 @@ let checkArray = (arr, types) => {
     
             return correct ? {correct} : {correct, failed}
         } else {
-            throw new Error( `${errorTag} The amount of types provided to simpleType must be (at least) equivalent to the amount of items to check, got ${types.length} types, and ${arg.length} items to check from Array data...`)
+            throw new Error( `${errorTag} The amount of types provided to simpleType must be (at least) equivalent to the amount of items to check, got ${types.length} types, and ${arr.length} items to check from Array data...`)
         }
     } else if (safeTypeof(types) == "object") {
         //this is object mode, simpleType will need to check both keys and types, in no specific order
@@ -45,7 +45,7 @@ let checkArray = (arr, types) => {
 
             return correct ? {correct} : {correct, failed}
         } else {
-            throw new Error( `${errorTag} The amount of types provided to simpleType must be (at least) equivalent to the amount of items to check, got ${types.length} types, and ${arg.length} items to check from Array data...`)
+            throw new Error( `${errorTag} The amount of types provided to simpleType must be (at least) equivalent to the amount of items to check, got ${types.length} types, and ${arr.length} items to check from Array data...`)
         }
 
     }

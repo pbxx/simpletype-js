@@ -107,7 +107,7 @@ let tcheck = st.checkSync({haspets: "boolean", username: "string" }, { username:
 
 ```
 
-It is important to note that when using Objects as type input, simpleType will only accept exactly 2 arguments...
+It is important to note that when using Arrays or Objects as the main type input, simpleType will only accept exactly 2 arguments...
 
 
 # Extras

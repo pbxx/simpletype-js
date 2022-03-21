@@ -1,4 +1,5 @@
 const assert = require("chai").assert
+var expect = require('chai').expect;
 const st = require("../simpletype")
 
 describe("Argument types with sequential array input", () => {
@@ -9,7 +10,7 @@ describe("Argument types with sequential array input", () => {
         assert.typeOf( test.correct, "boolean" )
         assert.equal( test.correct, true )
     }),
-    it("same but with multiple, multi-type Arrays as type input", () => {
+    it("should return same but with multiple, multi-type Arrays as type input", () => {
         let test = st.checkSync(["string", "boolean"], "number", ["string", "number"], ["array", "object"], [false, 42, 57000, { alfie: 123, fido: 456, golden: 789 }])
 
         assert.typeOf( test, "object" )
@@ -37,7 +38,7 @@ describe("Argument types with sequential object input", () => {
         assert.typeOf( test.correct, "boolean" )
         assert.equal( test.correct, true )
     }),
-    it("same but with multiple, multi-type Arrays as type input", () => {
+    it("should return same but with multiple, multi-type Arrays as type input", () => {
         let test = st.checkSync(["string", "boolean"], "number", ["string", "number"], ["array", "object"], {username: false, age: 42, income: 57000, petIDs: { alfie: 123, fido: 456, golden: 789 }})
 
         assert.typeOf( test, "object" )
@@ -65,6 +66,13 @@ describe("Array types with sequential Array input", () => {
         assert.typeOf( test.correct, "boolean" )
         assert.equal( test.correct, true )
     }),
+    it("should return same but with multiple, multi-type Arrays as type input", () => {
+        let test = st.checkSync([["string", "boolean"], "number", ["string", "number"], ["array", "object"]], [ false, 42, 57000, { alfie: 123, fido: 456, golden: 789 } ])
+
+        assert.typeOf( test, "object" )
+        assert.typeOf( test.correct, "boolean" )
+        assert.equal( test.correct, true )
+    }),
     it("should return an object containing { correct: false, failed: [{}] } property", () => {
         let test = st.checkSync(["string", "number", ["string", "number"], "array"], [ "johndoe", 42, { money: "$57,000" }, [123, 456, 789] ])
 
@@ -81,6 +89,13 @@ describe("Array types with sequential Array input", () => {
 describe("Array types with sequential Object input", () => {
     it("should return an object containing { correct: true }", () => {
         let test = st.checkSync(["string", "number", ["string", "number"], "array"], {username: "johndoe", age: 42, income: "$57,000", petIDs: [123, 456, 789]})
+
+        assert.typeOf( test, "object" )
+        assert.typeOf( test.correct, "boolean" )
+        assert.equal( test.correct, true )
+    }),
+    it("should return same but with multiple, multi-type Arrays as type input", () => {
+        let test = st.checkSync([["string", "boolean"], "number", ["string", "number"], ["array", "object"]], {username: false, age: 42, income: 57000, petIDs: { alfie: 123, fido: 456, golden: 789 }})
 
         assert.typeOf( test, "object" )
         assert.typeOf( test.correct, "boolean" )
