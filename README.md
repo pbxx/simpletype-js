@@ -1,11 +1,9 @@
-<p align="center">
-  <img src="https://ffpublishing.org/resources/img/simpletype/st-gitbanner.png?">
-</p>
+[![simpleType Logo](https://ffpublishing.org/resources/img/simpletype/st-gitbanner.png?)](https://github.com/pbxx/simpletype-js)
 
 A quick and easy, lightweight, array-safe, multi-purpose type checker for Node.js
 
 [![Build status](https://ci.appveyor.com/api/projects/status/af453ykolpvrhpwk?svg=true)](https://ci.appveyor.com/project/pbxx/simpletype-js)
-![AppVeyor tests](https://img.shields.io/appveyor/tests/pbxx/simpletype-js)
+[![AppVeyor tests](https://img.shields.io/appveyor/tests/pbxx/simpletype-js)](https://ci.appveyor.com/project/pbxx/simpletype-js/build/tests)
 
 ```js
 const st = require('simpletype-js')
