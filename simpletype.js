@@ -153,33 +153,29 @@ exports.checkSync = (...args) => {
                     }
                 }
             } else {
-                throw new Error( `${errorTag} Exactly 2 arguments must be passed when using simpleType in Object or Array mode`)
+                throw new Error( `${errorTag} Exactly 2 arguments must be passed when using simpleType in Object mode`)
             }
 
-        } else if (safeTypeof(args[0]) == "array") {
+        } else if (safeTypeof(args[0]) == "array" && args.length == 2) {
             //ARRAY TYPE MODE
-            if (args.length == 2) {
-                if (i == 0) {
-                    //this is the first arg, its a types array
-                    //replace the types array with it
-                    types = args[0]
-                } else if (i == args.length-1) {
-                    //this is the last arg
-                    if (safeTypeof(arg) == "array") {
-                        //it's an array, process it as such
-                        return checkArray(arg, types)
-        
-                    } else if (safeTypeof(arg) == "object") {
-                        //it's an object, process it as such
-                        return checkObj(arg, types)
-        
-                    }
+            if (i == 0) {
+                //this is the first arg, its a types array
+                //replace the types array with it
+                types = args[0]
+            } else if (i == args.length-1) {
+                //this is the last arg
+                if (safeTypeof(arg) == "array") {
+                    //it's an array, process it as such
+                    return checkArray(arg, types)
+    
+                } else if (safeTypeof(arg) == "object") {
+                    //it's an object, process it as such
+                    return checkObj(arg, types)
+    
                 }
-            } else {
-                throw new Error( `${errorTag} Exactly 2 arguments must be passed when using simpleType in Object or Object mode`)
             }
             
-        } else if (safeTypeof(args[0]) == "string") {
+        } else if ( safeTypeof(args[0]) == "string" || (safeTypeof(args[0]) == "array" && args.length > 2) ) {
             //MULTI ARG STRING TYPE MODE
             if (i != args.length-1) {
                 //this is not the last arg
