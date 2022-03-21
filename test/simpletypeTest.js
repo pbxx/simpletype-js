@@ -155,3 +155,50 @@ describe("Object types with Object input", () => {
         assert.equal( test.correct, false )
     })
 })
+
+describe("Readme example", () => {
+    it("from sync section should work", () => {
+        let tcheck = st.checkSimpleSync("string", "array", ["number", "boolean"], [ "johndoe", [123, 456, 789], 42 ])
+
+        assert.typeOf( tcheck, "object" )
+        assert.typeOf( tcheck.correct, "boolean" )
+        assert.equal( tcheck.correct, true )
+    }),
+    it("from async section should work", () => {
+        st.checkSimple("string", "array", ["number", "boolean"], [ "johndoe", [123, 456, 789], 42 ])
+        .then((tcheck) => {
+            assert.typeOf( tcheck, "object" )
+            assert.typeOf( tcheck.correct, "boolean" )
+            assert.equal( tcheck.correct, true )
+        })
+        .catch((err) => {
+            //an error occurred
+        })
+    }),
+    it("array type input section should work", () => {
+        let tcheck = st.checkSync(["string", "boolean"], { username: "johndoe", haspets: true })
+
+        assert.typeOf( tcheck, "object" )
+        assert.typeOf( tcheck.correct, "boolean" )
+        assert.equal( tcheck.correct, true )
+    }),
+    it("object type input section should work", () => {
+        let tcheck = st.checkSync({haspets: "boolean", username: "string" }, { username: "johndoe", haspets: true })
+
+        assert.typeOf( tcheck, "object" )
+        assert.typeOf( tcheck.correct, "boolean" )
+        assert.equal( tcheck.correct, true )
+    }),
+    it("array safe typeof should work with objects", () => {
+        let test = st.typeof( {foo: "bar", bar: "foo"} ) // "object"
+
+        assert.typeOf( test, "string" )
+        assert.equal( test, "object" )
+    }),
+    it("array safe typeof should work with arrays", () => {
+        let test = st.typeof( ["foo", "bar"] ) // "array"
+
+        assert.typeOf( test, "string" )
+        assert.equal( test, "array" )
+    })
+})

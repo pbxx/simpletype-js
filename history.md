@@ -14,3 +14,8 @@
 * adding more tests for increased stability
 * adding this history.md file to track changes
 * intending for v2 to be a long term version, as this was a choice to make a very early breaking change...
+
+2.0.6 / 2022-03-20
+===================
+* update and correct readme
+* add tests for readme examples

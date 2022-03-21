@@ -36,27 +36,22 @@ With the ```checkSimple()``` and ```checkSimpleSync()``` method, simpleType take
 ```js
 const st = require('simpletype-js')
 
-try {
-    let tcheck = st.checkSimpleSync("string", "array", ["number", "boolean"], arguments)
-    if (tcheck.correct) {
-        //all values were of correct type
+let tcheck = st.checkSimpleSync("string", "array", ["number", "boolean"], [ "johndoe", [123, 456, 789], 42 ])
+if (tcheck.correct) {
+    //all values were of correct type
 
-    } else {
-        //one or more values were of incorrect type
+} else {
+    //one or more values were of incorrect type
 
-    }
-} catch (err) {
-    //an error occured
 }
-
-
 ```
+
 ### Asynchronous
 The ```check()``` and ```checkSimple()``` methods behave exactly the same as the synchronous versions, just as promises:
 ```js
 const st = require('simpletype-js')
 
-st.checkSimple("string", "array", "number", [ "johndoe", [123, 456, 789], 42 ])
+st.checkSimple("string", "array", ["number", "boolean"], [ "johndoe", [123, 456, 789], 42 ])
 .then((tcheck) => {
     if (tcheck.correct) {
         //all values were of correct type
@@ -65,29 +60,29 @@ st.checkSimple("string", "array", "number", [ "johndoe", [123, 456, 789], 42 ])
     }
 })
 .catch((err) => {
-    //an error occured
+    //an error occurred
 })
 
 ```
 
 # How it works 
-simpleType returns information about item types with a ```tcheck``` object, such as the examples below...
+simpleType returns type information using a ```tcheck``` object, such as the examples below...
 
 If all values passed to simpleType match the required types, the ```tcheck``` object will only have one property, ```correct```:
 ```js
 { correct: true }
 ```
 
-If one or more failed the check, ```tcheck.correct``` will be false, and a  ```failed``` array is added, to provide details on each value that failed.
+If one or more failed the check, ```tcheck.correct``` will be false, and a  ```tcheck.failed``` array is added to provide specifics on the failed values:
 ```js
 {
   correct: false,
   failed: [ { index: 1, type: 'number', expected: 'string' } ]
 }
 ```
-As seen above, for values passed in Arrays, an index number of the incorrect value is provided for each failed value, as well as the type provided and expected.
+As seen above, for values passed in ordered-Arrays, an index number is provided for each failed value, as well as the type provided and expected.
 
-For values passed in Objects, the index property provides the key name of the failed value, instead:
+For values passed in Objects, the index property provides the key name of the failed value instead:
 ```js
 {
   correct: false,
@@ -100,15 +95,15 @@ For values passed in Objects, the index property provides the key name of the fa
 Using the ```check()``` and```checkSync()``` methods, simpleType can take an Array or Object of required type strings as the first argument:
 
 ```js
-let tcheck = st.checkSync(["string", "boolean"], { username: "johndoe", haspets: true })
-/* et cetera */
+let tcheck = st.checkSync( ["string", "boolean"], { username: "johndoe", haspets: true } )
+/* { correct: true } */
 
 ```
 
 If you pass both types and values as Objects, the order of values no longer matter! simpleType will check the type of each item by key:
 
 ```js
-let tcheck = st.checkSync({haspets: "boolean", username: "string" }, { username: "johndoe", haspets: true })
+let tcheck = st.checkSync( {haspets: "boolean", username: "string" }, { username: "johndoe", haspets: true } )
 /* { correct: true } */
 
 ```
@@ -119,7 +114,7 @@ It is important to note that when using the ```check()``` and```checkSync()``` m
 # Extras
 ### Array-safe typeof()
 
-The vanilla JS ```typeof()``` function doesnt know the difference between Arrays ```[]``` and Objects ```{}``` normally, so some basic extra code is required to check for arrays. 
+The vanilla JS ```typeof()``` function doesn't know the difference between Arrays ```[]``` and Objects ```{}``` normally, so some basic extra code is required to check for arrays. 
 
 Since this function is used often in simpleTypes, it is exported as an extra feature in case it's ever needed:
 ```js
