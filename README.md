@@ -11,7 +11,7 @@ const st = require('simpletype-js')
 
 function myStrictFunction(name, age, income, pets) {
     //Example usage for functions:
-    let tcheck = st.checkSync("string", "number", ["string", "number"], "array", arguments)
+    let tcheck = st.checkSimpleSync("string", "number", ["string", "number"], "array", arguments)
     if (tcheck.correct) {
         //all arguments were of correct type
         
@@ -28,6 +28,46 @@ Installation is done using the
 
 ```console
 $ npm i simpletype-js
+```
+
+# Getting started
+With the ```checkSimple()``` and ```checkSimpleSync()``` method, simpleType takes multiple type string arguments (or Array arguments for multiple acceptable types), then checks an ordered Array/Object of values, returning a ```tcheck``` object:
+### Synchronous
+```js
+const st = require('simpletype-js')
+
+try {
+    let tcheck = st.checkSimpleSync("string", "array", ["number", "boolean"], arguments)
+    if (tcheck.correct) {
+        //all values were of correct type
+
+    } else {
+        //one or more values were of incorrect type
+
+    }
+} catch (err) {
+    //an error occured
+}
+
+
+```
+### Asynchronous
+The ```check()``` and ```checkSimple()``` methods behave exactly the same as the synchronous versions, just as promises:
+```js
+const st = require('simpletype-js')
+
+st.checkSimple("string", "array", "number", [ "johndoe", [123, 456, 789], 42 ])
+.then((tcheck) => {
+    if (tcheck.correct) {
+        //all values were of correct type
+    } else {
+        //one or more values were of incorrect type
+    }
+})
+.catch((err) => {
+    //an error occured
+})
+
 ```
 
 # How it works 
@@ -55,43 +95,9 @@ For values passed in Objects, the index property provides the key name of the fa
 }
 ```
 
-# Getting started
-With the simple method, simpleType takes multiple type string arguments (or Array arguments for multiple acceptable types), then checks each of an ordered Array/Object of values, returning a ```tcheck``` object:
-### Sychronous
-```js
-const st = require('simpletype-js')
-
-let tcheck = st.checkSync("string", "array", ["number", "boolean"], arguments)
-if (tcheck.correct) {
-    //all values were of correct type
-
-} else {
-    //one or more values were of incorrect type
-
-}
-
-```
-### Asynchronous
-The ```st.check()``` function behaves exactly the same as the synchronous version, just as a promise:
-```js
-const st = require('simpletype-js')
-
-st.check("string", "array", "number", /* any ordered Array or Object of values to check */)
-.then((tcheck) => {
-    if (tcheck.correct) {
-        //all values were of correct type
-    } else {
-        //one or more values were of incorrect type
-    }
-})
-.catch((err) => {
-    //an error occured
-})
-
-```
 
 # Extended Features
-simpleType can also take either an Array or Object of required type strings as the first argument:
+Using the ```check()``` and```checkSync()``` methods, simpleType can take an Array or Object of required type strings as the first argument:
 
 ```js
 let tcheck = st.checkSync(["string", "boolean"], { username: "johndoe", haspets: true })
@@ -107,7 +113,7 @@ let tcheck = st.checkSync({haspets: "boolean", username: "string" }, { username:
 
 ```
 
-It is important to note that when using Arrays or Objects as the main type input, simpleType will only accept exactly 2 arguments...
+It is important to note that when using the ```check()``` and```checkSync()``` methods, simpleType will only accept exactly 2 arguments...
 
 
 # Extras

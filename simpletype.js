@@ -116,6 +116,16 @@ let safeTypeof = (value) => {
     return (Array.isArray(value)) ? "array" : typeof(value)
 }
 
+exports.checkSimple = (...args) => {
+    return new Promise((resolve, reject) => {
+        try {
+            let tCheck = exports.checkSync(...args)
+            resolve(tCheck)
+        } catch (err) {
+            reject(err)
+        }
+    })
+}
 exports.check = (...args) => {
     return new Promise((resolve, reject) => {
         try {
@@ -127,13 +137,51 @@ exports.check = (...args) => {
     })
 }
 
-exports.checkSync = (...args) => {
+exports.checkSimpleSync = (...args) => {
     //the last arg is the data payload, this may be a string csv, object, or array
     let types = []
     let output = {}
     for (let [i, arg] of args.entries()) {
 
-        if (safeTypeof(args[0]) == "object") {
+        if ( safeTypeof(args[0]) == "string" || safeTypeof(args[0]) == "array" ) {
+            //MULTI ARG STRING TYPE MODE
+            if (i != args.length-1) {
+                //this is not the last arg
+                if (typeof(arg) == "string") {
+                    //it's a string, pass it to types
+                    types.push(arg)
+                } else if (safeTypeof(arg) == "array") {
+                    //it's an array, pass it to types
+                    types.push(arg)
+                } else {
+                    throw new Error( `${errorTag} All types passed to simpleType must be string or array, got type "${typeof(arg)}" in arg ${i+1}...`)
+                }
+                
+            } else {
+                //this is the last arg, the data payload
+                //first check its type
+
+                if (safeTypeof(arg) == "array") {
+                    //it's an array, process it as such
+                    return checkArray(arg, types)
+    
+                } else if (safeTypeof(arg) == "object") {
+                    //it's an object, process it as such
+                    return checkObj(arg, types)
+    
+                }
+    
+            }
+        }
+    }
+}
+
+exports.checkSync = (...args) => {
+    //the last arg is the data payload, this may be a string csv, object, or array
+    let types = []
+    let output = {}
+    for (let [i, arg] of args.entries()) {
+        if (safeTypeof(args[0]) == "object" && args.length == 2) {
             //OBJECT TYPE MODE
             if (args.length == 2) {
                 if (i == 0) {
@@ -175,41 +223,9 @@ exports.checkSync = (...args) => {
                 }
             }
             
-        } else if ( safeTypeof(args[0]) == "string" || (safeTypeof(args[0]) == "array" && args.length > 2) ) {
-            //MULTI ARG STRING TYPE MODE
-            if (i != args.length-1) {
-                //this is not the last arg
-                if (args.length > 2) {
-                    //more than 2 args, argument mode used
-                    if (typeof(arg) == "string") {
-                        //it's a string, pass it to types
-                        types.push(arg)
-                    } else if (safeTypeof(arg) == "array") {
-                        //it's an array, pass it to types
-                        types.push(arg)
-                    } else {
-                        throw new Error( `${errorTag} All types passed to simpleType must be string or array, got type "${typeof(arg)}" in arg ${i+1}...`)
-                    }
-                }
-                
-            } else {
-                //this is the last arg, the data payload
-                //first check its type
-
-                if (safeTypeof(arg) == "array") {
-                    //it's an array, process it as such
-                    return checkArray(arg, types)
-    
-                } else if (safeTypeof(arg) == "object") {
-                    //it's an object, process it as such
-                    return checkObj(arg, types)
-    
-                }
-    
-            }
+        } else {
+            throw new Error( `${errorTag} When using check or checkSync, the first argument must be Array or Object... Got ${safeTypeof(args[0])}`)
         }
-
-        
     }
 }
 
