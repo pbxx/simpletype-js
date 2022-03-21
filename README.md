@@ -4,6 +4,9 @@
 
 A quick and easy, lightweight, array-safe, multi-purpose type checker for Node.js
 
+![Build status](https://ci.appveyor.com/api/projects/status/af453ykolpvrhpwk?svg=true)](https://ci.appveyor.com/project/pbxx/simpletype-js)
+![AppVeyor tests](https://img.shields.io/appveyor/tests/pbxx/simpletype-js)
+
 ```js
 const st = require('simpletype-js')
 
