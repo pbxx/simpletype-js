@@ -10,13 +10,14 @@ A quick and easy, lightweight, array-safe, multi-purpose type checker for Node.j
 const st = require('simpletype-js')
 
 function myStrictFunction(name, age, income, pets) {
+    //Example usage for functions:
     let tcheck = st.checkSync("string", "number", ["string", "number"], "array", arguments)
     if (tcheck.correct) {
         //all arguments were of correct type
         
     } else {
         //one or more arguments were not of correct type
-
+        //use tcheck.failed for specific info
     }
 }
 ```
