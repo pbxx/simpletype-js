@@ -17,6 +17,13 @@ describe("Argument types with sequential array input", () => {
         assert.typeOf( test.correct, "boolean" )
         assert.equal( test.correct, true )
     }),
+    it("test variable amounts of acceptable types", () => {
+        let test = st.checkSimpleSync(["string", "boolean", "object"], "number", ["string"], ["array", "object", "boolean", "string", "number"], [ "johndoe", 42, "$57,000", false ])
+
+        assert.typeOf( test, "object" )
+        assert.typeOf( test.correct, "boolean" )
+        assert.equal( test.correct, true )
+    }),
     it("should return an object containing { correct: false, failed: [{}] } property", () => {
         let test = st.checkSimpleSync("string", "number", ["string", "number"], "array", ["johndoe", 42, { foo: "bar" }, [123, 456, 789]])
 
@@ -25,7 +32,7 @@ describe("Argument types with sequential array input", () => {
         assert.typeOf( test.failed[0], "object" )
         assert.typeOf( test.failed[0].index, "number" )
         assert.equal( test.failed[0].index, 2 )
-        assert(Array.isArray(test.failed), `{ failed } property was not Array! Got ${typeof(test.failed)}...` )
+        assert( Array.isArray(test.failed), `{ failed } property was not Array! Got ${typeof(test.failed)}...` )
         assert.equal( test.correct, false )
     })
 })
@@ -40,6 +47,13 @@ describe("Argument types with sequential object input", () => {
     }),
     it("should return same but with multiple, multi-type Arrays as type input", () => {
         let test = st.checkSimpleSync(["string", "boolean"], "number", ["string", "number"], ["array", "object"], {username: false, age: 42, income: 57000, petIDs: { alfie: 123, fido: 456, golden: 789 }})
+
+        assert.typeOf( test, "object" )
+        assert.typeOf( test.correct, "boolean" )
+        assert.equal( test.correct, true )
+    }),
+    it("test variable amounts of acceptable types", () => {
+        let test = st.checkSimpleSync(["string", "boolean", "object"], "number", ["string"], ["array", "object", "boolean", "string", "number"], {username: false, age: 42, income: "$57,000", petIDs: { alfie: 123, fido: 456, golden: 789 }})
 
         assert.typeOf( test, "object" )
         assert.typeOf( test.correct, "boolean" )
@@ -73,6 +87,13 @@ describe("Array types with sequential Array input", () => {
         assert.typeOf( test.correct, "boolean" )
         assert.equal( test.correct, true )
     }),
+    it("test variable amounts of acceptable types", () => {
+        let test = st.checkSync([["string", "boolean", "object"], "number", ["string"], ["array", "object", "boolean", "string", "number"]], [ "johndoe", 42, "$57,000", false ])
+
+        assert.typeOf( test, "object" )
+        assert.typeOf( test.correct, "boolean" )
+        assert.equal( test.correct, true )
+    }),
     it("should return an object containing { correct: false, failed: [{}] } property", () => {
         let test = st.checkSync(["string", "number", ["string", "number"], "array"], [ "johndoe", 42, { money: "$57,000" }, [123, 456, 789] ])
 
@@ -101,6 +122,13 @@ describe("Array types with sequential Object input", () => {
         assert.typeOf( test.correct, "boolean" )
         assert.equal( test.correct, true )
     }),
+    it("test variable amounts of acceptable types", () => {
+        let test = st.checkSync([["string", "boolean", "object"], "number", ["string"], ["array", "object", "boolean", "string", "number"]], {username: false, age: 42, income: "$57,000", petIDs: 365 })
+
+        assert.typeOf( test, "object" )
+        assert.typeOf( test.correct, "boolean" )
+        assert.equal( test.correct, true )
+    }),
     it("should return an object containing { correct: false, failed: [{}] } property", () => {
         let test = st.checkSync(["string", "number", ["string", "number"], "array"], {username: "johndoe", age: 42, income: { money: "$57,000" }, petIDs: [123, 456, 789]})
 
@@ -117,6 +145,13 @@ describe("Array types with sequential Object input", () => {
 describe("Object types with sequential Array input", () => {
     it("should return an object containing { correct: true }", () => {
         let test = st.checkSync({username: "string", age: "number", income: ["string", "number"], petIDs: "array"}, [ "johndoe", 42, "$57,000", [123, 456, 789] ])
+
+        assert.typeOf( test, "object" )
+        assert.typeOf( test.correct, "boolean" )
+        assert.equal( test.correct, true )
+    }),
+    it("test variable amounts of acceptable types", () => {
+        let test = st.checkSync({username: ["string", "boolean", "object"], age: "number", income: ["string"], petIDs: ["array", "object", "boolean", "string", "number"]}, [ "johndoe", 42, "$57,000", [123, 456, 789] ])
 
         assert.typeOf( test, "object" )
         assert.typeOf( test.correct, "boolean" )
@@ -143,6 +178,13 @@ describe("Object types with Object input", () => {
         assert.typeOf( test.correct, "boolean" )
         assert.equal( test.correct, true )
     }),
+    it("test variable amounts of acceptable types", () => {
+        let test = st.checkSync({username: ["string", "boolean", "object"], age: "number", income: ["string"], petIDs: ["array", "object", "boolean", "string", "number"]}, {username: false, age: 42, income: "$57,000", petIDs: 365 })
+
+        assert.typeOf( test, "object" )
+        assert.typeOf( test.correct, "boolean" )
+        assert.equal( test.correct, true )
+    }),
     it("should return an object containing { correct: false, failed: [{}] } property", () => {
         let test = st.checkSync({username: "string", age: "number", income: ["string", "number"], petIDs: "array"}, {username: "johndoe", age: 42, income: { money: "$57,000" }, petIDs: [123, 456, 789]})
 
@@ -157,6 +199,25 @@ describe("Object types with Object input", () => {
 })
 
 describe("Readme example", () => {
+    it("from header example should work", () => {
+
+        function myStrictFunction(name, age, income, pets) {
+            //Example usage for functions:
+            let tcheck = st.checkSimpleSync("string", "number", ["string", "number"], "array", arguments)
+            if (tcheck.correct) {
+                //all arguments were of correct type
+                return "yay"
+            } else {
+                //one or more arguments were not of correct type
+                //use tcheck.failed for specific info
+            }
+        }
+
+        let test = myStrictFunction( "johndoe", 42, "$58,000", [123, 456, 789] )
+
+        assert.typeOf( test, "string" )
+        assert.equal( test, "yay" )
+    }),
     it("from sync section should work", () => {
         let tcheck = st.checkSimpleSync("string", "array", ["number", "boolean"], [ "johndoe", [123, 456, 789], 42 ])
 
