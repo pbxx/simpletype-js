@@ -1,4 +1,9 @@
 <p align="center">
+  <img src="https://ci.appveyor.com/api/projects/status/af453ykolpvrhpwk?svg=true)](https://ci.appveyor.com/project/pbxx/simpletype-js">
+  <img src="https://img.shields.io/appveyor/tests/pbxx/simpletype-js)](https://ci.appveyor.com/project/pbxx/simpletype-js/build/tests">
+</p>
+
+<p align="center">
   <img src="https://public.pbxdesign.xyz/simpletype-js/st-gitbanner.png">
 </p>
 
