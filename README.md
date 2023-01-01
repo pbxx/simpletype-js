@@ -1,6 +1,7 @@
 <p align="center">
-  <img src="https://ci.appveyor.com/api/projects/status/af453ykolpvrhpwk?svg=true)](https://ci.appveyor.com/project/pbxx/simpletype-js">
-  <img src="https://img.shields.io/appveyor/tests/pbxx/simpletype-js)](https://ci.appveyor.com/project/pbxx/simpletype-js/build/tests">
+  <a href="https://ci.appveyor.com/project/pbxx/simpletype-js"><img src="https://ci.appveyor.com/api/projects/status/af453ykolpvrhpwk?svg=true"></a>
+  <a href="https://ci.appveyor.com/project/pbxx/simpletype-js/build/tests"><img src="https://img.shields.io/appveyor/tests/pbxx/simpletype-js"></a>
+  <a href="https://www.npmjs.com/package/simpletype-js"><img src="https://img.shields.io/npm/v/simpletype-js"></a>
 </p>
 
 <p align="center">
