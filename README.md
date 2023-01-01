@@ -1,4 +1,4 @@
-[![simpleType Logo](https://public.pbxdesign.xyz/simpletype-js/st-gitbanner.png)
+![simpleType Logo](https://public.pbxdesign.xyz/simpletype-js/st-gitbanner.png)
 
 A quick and easy, lightweight, array-safe, multi-purpose type checker for Node.js
 
