@@ -1,6 +1,11 @@
-![simpleType Logo](https://public.pbxdesign.xyz/simpletype-js/st-gitbanner.png)
+<p align="center">
+  <img src="https://public.pbxdesign.xyz/simpletype-js/st-gitbanner.png">
+</p>
 
-A quick and easy, lightweight, array-safe, multi-purpose type checker for Node.js
+<h2 align="center">simpletype-js</h2>
+<p align="center">
+  A quick and easy, lightweight, array-safe, multi-purpose type checker for Node.js
+</p>
 
 [![Build status](https://ci.appveyor.com/api/projects/status/af453ykolpvrhpwk?svg=true)](https://ci.appveyor.com/project/pbxx/simpletype-js)
 [![AppVeyor tests](https://img.shields.io/appveyor/tests/pbxx/simpletype-js)](https://ci.appveyor.com/project/pbxx/simpletype-js/build/tests)
